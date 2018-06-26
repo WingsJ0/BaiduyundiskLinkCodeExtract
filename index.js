@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         百度网盘提取工具
-// @namespace    WingsJ
+// @namespace    http://weibo.com/comicwings
 // @version      1.0
 // @description  寻找网盘提取码，打开网盘链接后自动填入并提交。
 // @author       WingsJ
@@ -15,7 +15,7 @@
     if(window.location.hostname!==BaiduHostname)        //链接源网页
     {
         const CodeRegexp=/(?:(?:密码|提取码)[:：\t\n\r ]*([a-zA-Z\d]{4}))|(^[a-zA-Z\d]{4}$)/;
-        const LinkRegexp=/((?:https?)?:\/\/pan.baidu.com\/s\/[-\w]+)/i;
+        const LinkRegexp=/((?:https?:\/\/)?(?:pan|yun).baidu.com\/s\/[-\w]+)/i;
 
         let code=null,link=null,addressText=null,addressNode=null;
         let filter=(node)=>
