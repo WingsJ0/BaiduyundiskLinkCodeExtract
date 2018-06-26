@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         百度网盘提取工具
-// @namespace    http://weibo.com/comicwings
+// @namespace    WingsJ
 // @version      1.0
 // @description  寻找网盘提取码，打开网盘链接后自动填入并提交。
 // @author       WingsJ
