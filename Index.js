@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度网盘提取工具
 // @namespace    http://weibo.com/comicwings
-// @version      1.1
+// @version      1.2
 // @description  点击按钮扫描，如果页面上有百度云盘的资源网址，则将文字转换为链接；如果页面上有百度云盘资源链接和提取码，则在点击链接后自动填入提取码并提交
 // @author       WingsJ
 // @match        *://*/*
