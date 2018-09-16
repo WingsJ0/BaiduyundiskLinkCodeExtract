@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度网盘提取工具
 // @namespace    http://weibo.com/comicwings
-// @version      1.2
+// @version      1.3
 // @description  点击按钮扫描，如果页面上有百度云盘的资源网址，则将文字转换为链接；如果页面上有百度云盘资源链接和提取码，则在点击链接后自动填入提取码并提交
 // @author       WingsJ
 // @match        *://*/*
@@ -32,7 +32,7 @@
     };
 
     const BaiduHostname='pan.baidu.com';
-    const CodeRegexp=/(?:(?:密码|提取码)[:：\t\n\r ]*([a-zA-Z\d]{4}))|(^[a-zA-Z\d]{4}$)/;
+    const CodeRegexp=/(?:(?:提取密码|提取码|提取|密码|百度网盘|度盘|百度盘)[:：\t\n\r ]*([a-zA-Z\d]{4}))/;
     const LinkRegexp=/((?:https?:\/\/)?(?:pan|yun).baidu.com\/s\/[-\w]+)/i;
   
     let links=[];
@@ -160,14 +160,14 @@
         `
             .BaiduyundiskLinkCodeExtract_button
             {
+                z-index:100;
                 position:fixed;
                 right:0;
                 top:30%;
-                width:100px;
-                height:100px;
+                padding:10px;
                 background-color:skyblue;
-                font-size:32px;
-                font-weight:bold;
+                font-size:24px;
+                line-height:1.2;
                 text-align:center;
                 border-top-left-radius:16px;
                 border-bottom-left-radius:16px;
@@ -190,7 +190,7 @@
       
         let button=document.createElement('div');
         button.className='BaiduyundiskLinkCodeExtract_button';
-        button.innerHTML='<p>扫描</p><p>链接</p>';
+        button.innerHTML='<p>扫描链接</p>';
         button.addEventListener('click',scan);
 
         document.body.appendChild(button);
