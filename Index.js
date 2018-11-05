@@ -222,7 +222,8 @@
 
 /*构造*/
 
-    initiate();
+    if(self===top)      //不在iframe中
+        initiate();
 
     if(window.location.hostname===BaiduHostname)       //网盘目标网页
     {
