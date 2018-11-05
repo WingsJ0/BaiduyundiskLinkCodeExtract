@@ -175,6 +175,11 @@
                 color:#333;
             }
 
+            .BaiduyundiskLinkCodeExtract_menu p
+            {
+                margin:0;
+            }
+
             .BaiduyundiskLinkCodeExtract_title
             {
                 padding-bottom:8px;
