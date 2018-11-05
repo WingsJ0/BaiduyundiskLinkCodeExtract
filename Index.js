@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度网盘提取工具
 // @namespace    http://weibo.com/comicwings
-// @version      1.3
+// @version      1.4
 // @description  点击按钮扫描，如果页面上有百度云盘的资源网址，则将文字转换为链接；如果页面上有百度云盘资源链接和提取码，则在点击链接后自动填入提取码并提交
 // @author       WingsJ
 // @match        *://*/*
@@ -158,24 +158,38 @@
     {
         const css=
         `
-            .BaiduyundiskLinkCodeExtract_button
+            .BaiduyundiskLinkCodeExtract_menu
             {
-                z-index:100;
+                z-index:10000;
                 position:fixed;
                 right:0;
                 top:30%;
                 padding:10px;
                 background-color:skyblue;
                 font-size:24px;
+                font-family:'Microsoft JhengHei',sans-self;
                 line-height:1.2;
                 text-align:center;
                 border-top-left-radius:16px;
                 border-bottom-left-radius:16px;
-                cursor:pointer
+                color:#333;
             }
-            .BaiduyundiskLinkCodeExtract_button:active
+
+            .BaiduyundiskLinkCodeExtract_title
             {
-                background-color:yellow;
+                padding-bottom:8px;
+                border-bottom:1px solid lightblue;
+                font-size:14px;
+            }
+
+            .BaiduyundiskLinkCodeExtract_button
+            {
+                padding:4px 0;
+                cursor:pointer;
+            }
+            .BaiduyundiskLinkCodeExtract_button:hover
+            {
+                color:blue;
             }
 
             .BaiduyundiskLinkCodeExtract_link
@@ -188,12 +202,17 @@
         style.innerHTML=css;
         document.head.appendChild(style);
       
-        let button=document.createElement('div');
-        button.className='BaiduyundiskLinkCodeExtract_button';
-        button.innerHTML='<p>扫描链接</p>';
-        button.addEventListener('click',scan);
+        let menu=document.createElement('div');
+        menu.className='BaiduyundiskLinkCodeExtract_menu';
+        menu.innerHTML=`<p class='BaiduyundiskLinkCodeExtract_title'>百度网盘工具</p>`;
 
-        document.body.appendChild(button);
+        let button_scan=document.createElement('p');
+        button_scan.className='BaiduyundiskLinkCodeExtract_button';
+        button_scan.innerText='扫描链接';
+        button_scan.addEventListener('click',scan);
+
+        menu.appendChild(button_scan);
+        document.body.appendChild(menu);
     };
 
 /*构造*/
