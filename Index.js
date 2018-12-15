@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         百度网盘提取工具
+// @name         百度网盘提取工具（BaiduyundiskLinkCodeExtract）
 // @namespace    http://weibo.com/comicwings
 // @version      1.4
 // @description  点击按钮扫描，如果页面上有百度云盘的资源网址，则将文字转换为链接；如果页面上有百度云盘资源链接和提取码，则在点击链接后自动填入提取码并提交
@@ -32,9 +32,9 @@
     };
 
     const BaiduHostname='pan.baidu.com';
-    const CodeRegexp=/(?:(?:提取密码|提取码|提取|密码|百度网盘|度盘|百度盘)[:：\t\n\r ]*([a-zA-Z\d]{4}))/;
+    const CodeRegexp=/(?:(?:提取密码|提取码|提取|密码|百度网盘|度盘|百度盘)?[:：\t\n\r ]*([a-zA-Z\d]{4}))/;
     const LinkRegexp=/((?:https?:\/\/)?(?:pan|yun).baidu.com\/s\/[-\w]+)/i;
-  
+
     let links=[];
 
     /**
@@ -86,6 +86,8 @@
         {
             if(node.nodeName==='#text')
             {
+                console.log(node);
+
                 let codeMatchResult=node.nodeValue.match(CodeRegexp);       //普通链接文本
                 if(codeMatchResult)
                 {
@@ -131,9 +133,6 @@
             link.node.innerHTML=link.node.innerHTML.replace(link.text,aHtml);       //将文本转换为链接
         }
     };
-  
-/*接口*/
-
     /**
      * @name 扫描
      * @type Function
@@ -143,6 +142,7 @@
         searchLink();
 
         console.log(links);
+
         for(let el of links)
         {
             let code=searchCode(el.node);
@@ -206,7 +206,7 @@
         let style=document.createElement('style');
         style.innerHTML=css;
         document.head.appendChild(style);
-      
+
         let menu=document.createElement('div');
         menu.className='BaiduyundiskLinkCodeExtract_menu';
         menu.innerHTML=`<p class='BaiduyundiskLinkCodeExtract_title'>百度网盘工具</p>`;
