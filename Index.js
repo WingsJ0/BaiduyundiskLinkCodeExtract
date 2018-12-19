@@ -32,10 +32,10 @@
     };
 
     const BaiduHostname='pan.baidu.com';
-    const CodeRegexp=/(?:(?:提取密码|提取码|提取|密码|百度网盘|度盘|百度盘)[:：\t\n\r ]*([a-zA-Z\d]{4}))/;
+    const CodeRegexp=/[百度云盘提取密码]+[:：\s]*([a-zA-Z\d]{4})|^\s*([a-zA-Z\d]{4})\s*$/m;
     const LinkRegexp=/((?:https?:\/\/)?(?:pan|yun).baidu.com\/s\/[-\w]+)/i;
 
-    let links=[];
+    let links=null;
 
     /**
      * @name 搜索链接
@@ -98,7 +98,7 @@
             }
         };
 
-        const MaxLevel=5;       //搜索最多5层
+        const MaxLevel=10;       //最多搜索层数
         let level=0;
         while(code===null && level<MaxLevel)
         {
@@ -137,6 +137,8 @@
      */
     const scan=function()
     {
+        links=[];
+
         searchLink();
 
         for(let el of links)
