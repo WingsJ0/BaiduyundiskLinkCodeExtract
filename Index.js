@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度网盘提取工具（BaiduyundiskLinkCodeExtract）
 // @namespace    http://weibo.com/comicwings
-// @version      1.4
+// @version      1.5
 // @description  点击按钮扫描，如果页面上有百度云盘的资源网址，则将文字转换为链接；如果页面上有百度云盘资源链接和提取码，则在点击链接后自动填入提取码并提交
 // @author       WingsJ
 // @match        *://*/*
@@ -32,7 +32,7 @@
     };
 
     const BaiduHostname='pan.baidu.com';
-    const CodeRegexp=/(?:(?:提取密码|提取码|提取|密码|百度网盘|度盘|百度盘)?[:：\t\n\r ]*([a-zA-Z\d]{4}))/;
+    const CodeRegexp=/(?:(?:提取密码|提取码|提取|密码|百度网盘|度盘|百度盘)[:：\t\n\r ]*([a-zA-Z\d]{4}))/;
     const LinkRegexp=/((?:https?:\/\/)?(?:pan|yun).baidu.com\/s\/[-\w]+)/i;
 
     let links=[];
@@ -45,7 +45,7 @@
     {
         let filter=(node)=>
         {
-            if(node.nodeName==='A')
+            if(node.nodeName==='A' && !node.classList.contains('BaiduyundiskLinkCodeExtract_link'))
             {
                 if(node.href.match(LinkRegexp))
                 {
@@ -54,7 +54,7 @@
 
                 return NodeFilter.FILTER_ACCEPT;
             }
-            else if(node.nodeName==='#text')
+            else if(node.nodeName==='#text' && node.parentNode.nodeName!=='A')
             {
                 let linkMatchResult=node.nodeValue.match(LinkRegexp);       //普通链接文本
                 if(linkMatchResult)
@@ -86,8 +86,6 @@
         {
             if(node.nodeName==='#text')
             {
-                console.log(node);
-
                 let codeMatchResult=node.nodeValue.match(CodeRegexp);       //普通链接文本
                 if(codeMatchResult)
                 {
@@ -140,8 +138,6 @@
     const scan=function()
     {
         searchLink();
-
-        console.log(links);
 
         for(let el of links)
         {
